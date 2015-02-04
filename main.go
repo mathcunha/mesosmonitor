@@ -10,7 +10,7 @@ import (
 func init() {
 	flag.StringVar(&mmon.Config.Mesos, "mesos", "http://127.0.0.1:5050/master/state.json", "Apache Mesos master url")
 	flag.StringVar(&mmon.Config.Interval, "interval", "1m", "Interval to update the cluster resource info")
-	flag.StringVar(&mmon.Config.ES, "elasticsearch", "", "ElasticSearch url")
+	flag.StringVar(&mmon.Config.ES, "elasticsearch", "http://127.0.0.1:9200", "ElasticSearch url")
 }
 
 func main() {

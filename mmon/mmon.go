@@ -1,9 +1,11 @@
 package mmon
 
 import (
+	"bytes"
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
 )
 
 var Config config
@@ -24,6 +26,7 @@ type MesosState struct {
 type Cluster struct {
 	Resource
 	Used Resource
+	Idle Resource
 }
 
 type Frameworks struct {
@@ -80,6 +83,10 @@ func (m *MesosState) updateCluster() {
 		m.Cluster.Resource.Mem += v.Resource.Mem
 		m.Cluster.Resource.Disk += v.Resource.Disk
 	}
+
+	m.Cluster.Idle.Cpus = m.Cluster.Resource.Cpus - m.Cluster.Used.Cpus
+	m.Cluster.Idle.Mem = m.Cluster.Resource.Mem - m.Cluster.Used.Mem
+	m.Cluster.Idle.Disk = m.Cluster.Resource.Disk - m.Cluster.Used.Disk
 }
 
 func (m *MesosState) Interval() string {
@@ -87,4 +94,14 @@ func (m *MesosState) Interval() string {
 }
 
 func postES(c Cluster) {
+	timestamp := time.Now().Format("2006.01.02")
+	var postData []byte
+	w := bytes.NewBuffer(postData)
+	json.NewEncoder(w).Encode(c)
+	url := Config.ES + "/logstash-" + timestamp + "/mmon/"
+	if resp, err := http.Post(url, "application/json", w); err == nil {
+		resp.Body.Close()
+	} else {
+		log.Printf("error sending %v to ElasticSearch(%v) - %v \n", c, url, err)
+	}
 }
