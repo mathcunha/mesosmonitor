@@ -1,8 +1,10 @@
 # Monitoring Apache Mesos Resources
 The adoption of container based solutions is increasing dramatically among IT companies. Reports recently presented by Docker shows this adoption in terms of numbers (http://blog.docker.com/2015/01/docker-project-2014-a-whirlwind-year-in-review/).
-But as more containers are being executed by a company, a new challenge arises, which is related to the monitoring of the containers and its computational resources. This situation leads us to the project Apache Mesos, with the help of Mesos it's possible to keep a track of the current status of the containers, the amount of computational resources available and the amount of computational resources actually in use.
+But as more containers are being executed by a company, a new challenge arises, which is manage the containers deployments and its hosts computational resources (e.g., cpus, memory, storage). This situation leads us to the project Apache Mesos, with the help of Mesos it's possible to automate the containers deployment into a cluster of hosts (i.e. slaves), the cluster computational resources are the sum of all slaves computational resources, so Mesos gives an unified view of the resources. While there is resource, is possible to deploy a new container.
 
-Now the company have a fault tolerant datacenter managed by Mesos and a view of the current status of resource usage and containers, since Mesos does not keep a computational resource usage history. But, what if were possible to keep a track of resource usage during a time? If these informations were stored, it would be easy to understand the datacenter behavior when a Mesos node is not working, or a container is executed.
+Since Mesos provides only a view of the resource usage current status and does not keep its history. Mesos users are unable to understand the datacenter behavior when, as example, a Mesos node is not working. Or the period of the day/week/month when the computational resources are been heavily consumed. In this context, if a snapshot of the current view were stored in an given rate, such as one snapshot per minute, it would be possible to better understand the cluster behavior. And more! What if these informations were stored at Elasticsearch? It would be possible to build beautiful resource graphs and to do some data analysis.
+
+Before we continue, let's introduce projects Docker, Mesos and Elasticsearch.
 
 ##What is Docker?
 
