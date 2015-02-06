@@ -4,7 +4,7 @@ But as more containers are being executed by a company, more server hosts are ne
 
 However, Mesos provides only a view of the resource usage current status and does not keep its history. Mesos users are unable to understand the datacenter behavior when, as example, a Mesos node is not working. Or the period of the day/week/month when the computational resources are been heavily consumed. In this context, if a snapshot of the current view were stored in an given rate, such as one snapshot per minute, it would be possible to better understand the cluster behavior. And more! What if these informations were stored at Elasticsearch? It would be possible to build beautiful resource time series graphs and to do some data analysis.
 
-This project is about motoring Apache Mesos cluster using Elasticsearch. But before continue, let's introduce projects Docker, Mesos and Elasticsearch.
+This tutorial is about motoring Apache Mesos cluster using Elasticsearch. But before continue, let's introduce projects Docker, Mesos and Elasticsearch.
 
 ##What is [Docker](https://www.docker.com/whatisdocker/)?
 Docker is an open platform for DevOps to build, ship and run distributed applications in a form of lightweight containers that can be deployed in the Docker Engine. As a result, it's possible to provide a standardized environment in such a way, the exactly same code that runs in production, can also run in developers laptop.
